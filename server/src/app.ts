@@ -1,11 +1,16 @@
 import "express-async-errors";
 import "reflect-metadata";
 import "dotenv/config";
+import cors from "cors";
 import express, { Request, Response, NextFunction } from "express";
 import { AppError } from "./errors/appError";
+import { AppRoutes } from "./routes";
 
 export const app = express();
+app.use(cors());
 app.use(express.json());
+
+AppRoutes(app);
 
 app.use(
 	(error: Error, request: Request, response: Response, _: NextFunction) => {
