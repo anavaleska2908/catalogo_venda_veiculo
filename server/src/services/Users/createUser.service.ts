@@ -1,7 +1,6 @@
 import { hash } from "bcryptjs";
-import { AppError } from "../../errors/appError";
-import { UserCreateRequest } from "../../interfaces";
 import { prisma } from "../../lib/prisma";
+import { UserCreateRequest } from "../../interfaces";
 
 export const createUserService = async ({
 	email,
