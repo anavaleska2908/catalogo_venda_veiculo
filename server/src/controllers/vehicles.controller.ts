@@ -4,6 +4,7 @@ import { VehicleCreateRequest } from "../interfaces";
 import { createVehicleService } from "../services/Vehicles/createVehicle.service";
 import { deleteVehicleService } from "../services/Vehicles/deleteVehicle.service";
 import { listAllVehiclesService } from "../services/Vehicles/listAllVehicles.service";
+import { showOneVehicleService } from "../services/Vehicles/showOneVehicle.service";
 import { updateVehicleService } from "../services/Vehicles/update.service";
 
 export class VehicleController {
@@ -29,6 +30,14 @@ export class VehicleController {
 		const vehicles = await listAllVehiclesService();
 
 		return response.status(200).json(vehicles);
+	};
+
+	static show = async (request: Request, response: Response) => {
+		const { id } = request.params;
+
+		const vehicle = await showOneVehicleService({ id });
+
+		return response.status(200).json(vehicle);
 	};
 
 	static update = async (request: Request, response: Response) => {

@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { AppError } from "../errors/appError";
 import { createUserService } from "../services/Users/createUser.service";
 
 export class UserController {

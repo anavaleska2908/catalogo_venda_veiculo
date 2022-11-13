@@ -27,4 +27,4 @@ app.use(
 	},
 );
 
-app.listen(process.env.PORT || 3333, () => console.log("Server running"));
+app.listen(3333, "0.0.0.0", () => console.log("Server running"));

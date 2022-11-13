@@ -11,3 +11,5 @@ vehicleRoute.post("/", authenticationMiddleware, VehicleController.store);
 vehicleRoute.patch("/:id", authenticationMiddleware, VehicleController.update);
 
 vehicleRoute.delete("/:id", authenticationMiddleware, VehicleController.delete);
+
+vehicleRoute.get("/:id", authenticationMiddleware, VehicleController.show);

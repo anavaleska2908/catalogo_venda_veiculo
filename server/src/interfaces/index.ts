@@ -22,14 +22,8 @@ export interface VehicleCreateRequest {
 	ownerId: string;
 }
 
-export interface VehicleOneRequest {
+export interface VehicleShowOneRequest {
 	id: string;
-	name: string;
-	brand: string;
-	model: string;
-	picture: string;
-	price: number;
-	ownerId: string;
 }
 
 export interface VehiclesUpdateRequest {

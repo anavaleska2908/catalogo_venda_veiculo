@@ -1,12 +1,23 @@
 import { hash } from "bcryptjs";
 import { prisma } from "../../lib/prisma";
 import { UserCreateRequest } from "../../interfaces";
+import { AppError } from "../../errors/appError";
 
 export const createUserService = async ({
 	email,
 	name,
 	password,
 }: UserCreateRequest) => {
+	const thisEmailAlreadyExists = await prisma.user.findFirst({
+		where: {
+			email,
+		},
+	});
+
+	if (thisEmailAlreadyExists) {
+		throw new AppError(400, "This Email is already registered.");
+	}
+
 	const user = await prisma.user.create({
 		data: {
 			email,
