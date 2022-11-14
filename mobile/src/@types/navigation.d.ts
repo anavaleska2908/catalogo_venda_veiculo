@@ -17,6 +17,10 @@ export declare global {
 				token?: string;
 				tokenExists?: boolean;
 			};
+			createVehicle: {
+				token?: string;
+				tokenExists?: boolean;
+			};
 		}
 	}
 }

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Center, Heading, ScrollView, useToast, VStack } from "native-base";
 import { useForm, Controller } from "react-hook-form";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -9,57 +8,43 @@ import { Header } from "../components/Header";
 import { api } from "../services/api";
 import { Input } from "../components/Input";
 import { Button } from "../components/Button";
-import { UpdateFormDataProps } from "../interfaces/updateVehicleData";
+import { CreateFormDataProps } from "../interfaces/createVehicleData";
 
 interface RouteParams {
-	id: string;
-	name: string;
-	brand: string;
-	model: string;
-	picture: string;
-	price: string;
 	token: string;
 }
 
-export function DetailsVehicle() {
+export function CreateVehicle() {
 	const { show } = useToast();
 	const { goBack } = useNavigation();
 	const { params } = useRoute();
-	const { id, name, brand, model, picture, price, token } =
-		params as RouteParams;
+	const { token } = params as RouteParams;
 
-	const updateVehicleSchema = yup.object({
-		name: yup.string(),
-		brand: yup.string(),
-		model: yup.string(),
-		picture: yup.string(),
-		price: yup.string(),
+	const createVehicleSchema = yup.object({
+		name: yup.string().required("Campo obrigatório"),
+		brand: yup.string().required("Campo obrigatório"),
+		model: yup.string().required("Campo obrigatório"),
+		picture: yup.string().required("Campo obrigatório"),
+		price: yup.string().required("Campo obrigatório"),
 	});
 
 	const {
 		control,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<UpdateFormDataProps>({
-		resolver: yupResolver(updateVehicleSchema),
-		defaultValues: {
-			name: name,
-			brand: brand,
-			model: model,
-			picture: picture,
-			price: price,
-		},
+	} = useForm<CreateFormDataProps>({
+		resolver: yupResolver(createVehicleSchema),
 	});
 
-	function handleUpdateVehicle(data: UpdateFormDataProps) {
-		api.patch(`/vehicles/${id}`, data, {
+	function handleCreateVehicle(data: CreateFormDataProps) {
+		api.post(`/vehicles/`, data, {
 			headers: {
 				Authorization: `Bearer ${token}`,
 			},
 		})
 			.then((_) => {
 				show({
-					title: "Dados do veículo atualizado com sucesso!",
+					title: "Veículo cadastrado com sucesso!",
 					placement: "top",
 					bgColor: "green.500",
 				});
@@ -68,31 +53,7 @@ export function DetailsVehicle() {
 			.catch((error) => {
 				console.log("error ", error);
 				show({
-					title: "Dados não foram atualizados, tente novamente!",
-					placement: "top",
-					bgColor: "red.500",
-				});
-			});
-	}
-
-	function handleDeleteVehicle() {
-		api.delete(`/vehicles/${id}`, {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-		})
-			.then((_) => {
-				show({
-					title: "Usuário deletado com sucesso!",
-					placement: "top",
-					bgColor: "yellow.500",
-				});
-				goBack();
-			})
-			.catch((error) => {
-				console.log("error ", error);
-				show({
-					title: "Email já cadastrado!",
+					title: "Veículo não foi cadastrado, tente novamente!",
 					placement: "top",
 					bgColor: "red.500",
 				});
@@ -113,7 +74,7 @@ export function DetailsVehicle() {
 						fontFamily="heading"
 						mb={8}
 					>
-						Atualize seu veículo
+						Cadastre seu veículo
 					</Heading>
 
 					<Controller
@@ -161,6 +122,7 @@ export function DetailsVehicle() {
 						render={({ field: { onChange, value } }) => (
 							<Input
 								placeholder="Foto do veículo"
+								autoCapitalize="none"
 								onChangeText={onChange}
 								value={value}
 								errorMessage={errors.picture?.message}
@@ -181,15 +143,8 @@ export function DetailsVehicle() {
 						)}
 					/>
 					<Button
-						title="Editar"
-						onPress={handleSubmit(handleUpdateVehicle)}
-					/>
-				</Center>
-				<Center>
-					<Button
-						variant="outline"
-						title="Deletar"
-						onPress={handleDeleteVehicle}
+						title="Publicar"
+						onPress={handleSubmit(handleCreateVehicle)}
 					/>
 				</Center>
 			</VStack>

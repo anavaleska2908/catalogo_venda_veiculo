@@ -1,5 +1,4 @@
 import { Express } from "express";
-import { authenticationMiddleware } from "../middlewares/authentication.middleware";
 import { loginRoute } from "./login.route";
 import { userRoute } from "./user.route";
 import { vehicleRoute } from "./vehicle.route";

@@ -11,7 +11,7 @@ export function ButtonIcon({ icon: Icon, ...rest }: ButtonIconProps) {
 
 	return (
 		<TouchableOpacity {...rest}>
-			<Icon color={colors.blue[500]} size={sizes[6]} />
+			<Icon color={colors.blue[500]} size={sizes[8]} />
 		</TouchableOpacity>
 	);
 }

@@ -31,7 +31,7 @@ export function Header({
 			bgColor="gray.200"
 			alignItems="flex-end"
 			p={4}
-			px={5}
+			px={8}
 		>
 			<HStack w="full" alignItems="center" justifyContent="space-between">
 				{isLoggedIn ? (

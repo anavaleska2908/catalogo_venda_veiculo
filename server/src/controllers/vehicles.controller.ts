@@ -1,11 +1,9 @@
-import { prisma } from "@prisma/client";
-import { Request, response, Response } from "express";
-import { VehicleCreateRequest } from "../interfaces";
+import { Request, Response } from "express";
 import { createVehicleService } from "../services/Vehicles/createVehicle.service";
 import { deleteVehicleService } from "../services/Vehicles/deleteVehicle.service";
 import { listAllVehiclesService } from "../services/Vehicles/listAllVehicles.service";
 import { showOneVehicleService } from "../services/Vehicles/showOneVehicle.service";
-import { updateVehicleService } from "../services/Vehicles/update.service";
+import { updateVehicleService } from "../services/Vehicles/updateVehicle.service";
 
 export class VehicleController {
 	static store = async (request: Request, response: Response) => {
@@ -20,8 +18,6 @@ export class VehicleController {
 			price,
 			ownerId,
 		});
-
-		console.log(vehicle);
 
 		return response.status(201).json(vehicle);
 	};

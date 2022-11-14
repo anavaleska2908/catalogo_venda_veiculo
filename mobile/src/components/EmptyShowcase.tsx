@@ -5,18 +5,30 @@ export function EmptyShowcase() {
 	const { navigate } = useNavigation();
 
 	return (
-		<Row flexWrap="wrap" justifyContent="center">
-			<Text color="gray.800" fontSize="sm" textAlign="center">
-				Você ainda não têm nenhum veículo cadastrado! Faça seu
+		<Row flexWrap="wrap" justifyContent="center" mt={40}>
+			<Text color="gray.800" fontSize="lg" textAlign="center" p={4}>
+				Você ainda não têm nenhum veículo cadastrado!
+			</Text>
+			<Text color="gray.800" fontSize="lg" textAlign="center">
+				Faça seu
 			</Text>
 			<Pressable onPress={() => navigate("signUp")}>
-				<Text>cadastro</Text>
+				<Text color="blue.500" fontSize="lg" textAlign="center">
+					cadastro {"\n"}
+				</Text>
 			</Pressable>
-			<Text>ou</Text>
+			<Text color="gray.800" fontSize="lg" textAlign="center">
+				ou {"\n"}
+			</Text>
+
 			<Pressable onPress={() => navigate("signIn")}>
-				<Text>login</Text>
+				<Text color="blue.500" fontSize="lg" textAlign="center">
+					login!
+				</Text>
 			</Pressable>
-			<Text>. Assim, poderá cadastrar um veículo.</Text>
+			<Text color="gray.800" fontSize="lg" textAlign="center">
+				Assim, poderá cadastrar um veículo.
+			</Text>
 		</Row>
 	);
 }

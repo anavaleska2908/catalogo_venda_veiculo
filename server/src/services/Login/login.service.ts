@@ -1,8 +1,8 @@
-import jwt from "jsonwebtoken";
+import { prisma } from "../../lib/prisma";
 import { compare } from "bcryptjs";
+import jwt from "jsonwebtoken";
 import { AppError } from "../../errors/appError";
 import { UserLoginRequest } from "../../interfaces";
-import { prisma } from "../../lib/prisma";
 
 export const loginService = async ({ email, password }: UserLoginRequest) => {
 	const user = await prisma.user.findUnique({

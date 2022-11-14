@@ -1,5 +1,5 @@
-import { hash } from "bcryptjs";
 import { prisma } from "../../lib/prisma";
+import { hash } from "bcryptjs";
 import { UserCreateRequest } from "../../interfaces";
 import { AppError } from "../../errors/appError";
 

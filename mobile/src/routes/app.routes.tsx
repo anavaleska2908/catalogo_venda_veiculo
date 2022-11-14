@@ -1,4 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { CreateVehicle } from "../screens/CreateVehicle";
 
 import { DetailsVehicle } from "../screens/DetailsVehicle";
 import { Showcase } from "../screens/Showcase";
@@ -17,6 +18,7 @@ export function AppRoutes() {
 			<Screen name="signIn" component={SignIn} />
 			<Screen name="signUp" component={SignUp} />
 			<Screen name="detailsVehicle" component={DetailsVehicle} />
+			<Screen name="createVehicle" component={CreateVehicle} />
 		</Navigator>
 	);
 }

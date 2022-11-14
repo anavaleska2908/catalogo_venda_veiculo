@@ -1,16 +1,18 @@
-import { FlatList, VStack } from "native-base";
+import { FlatList, HStack, VStack } from "native-base";
 import { useState, useCallback } from "react";
 import {
 	useNavigation,
 	useFocusEffect,
 	useRoute,
 } from "@react-navigation/native";
+import { PlusCircle, SignOut } from "phosphor-react-native";
 
 import { api } from "../services/api";
 import { Header } from "../components/Header";
 import { Loading } from "../components/Loading";
 import { VehicleCard, VehicleCardProps } from "../components/VehicleCard";
 import { EmptyShowcase } from "../components/EmptyShowcase";
+import { ButtonIcon } from "../components/ButtonIcon";
 
 type RouteParams = {
 	token?: string;
@@ -46,6 +48,14 @@ export function Showcase() {
 		}
 	}
 
+	function handleNewVehicle() {
+		navigate("createVehicle", { token });
+	}
+
+	function handleSignOut() {
+		navigate("showcase");
+	}
+
 	useFocusEffect(
 		useCallback(() => {
 			fetchVehicles();
@@ -56,7 +66,6 @@ export function Showcase() {
 		<VStack flex={1} bgColor="gray.200">
 			<Header title="Veículos" isLoggedIn={tokenExists} />
 			<VStack
-				mt={6}
 				mx={5}
 				borderBottomWidth={1}
 				borderBottomColor="gray.300"
@@ -66,32 +75,51 @@ export function Showcase() {
 				{isLoading ? (
 					<Loading />
 				) : (
-					<FlatList
-						data={vehicles}
-						keyExtractor={(item) => item.id}
-						showsVerticalScrollIndicator={false}
-						_contentContainerStyle={{ pb: 10 }}
-						ListEmptyComponent={() => <EmptyShowcase />}
-						px={5}
-						renderItem={({ item }) => (
-							<VehicleCard
-								data={item}
-								onPress={
-									tokenExists &&
-									(() =>
-										navigate("detailsVehicle", {
-											id: item.id,
-											name: item.name,
-											brand: item.brand,
-											model: item.model,
-											picture: item.picture,
-											price: item.price,
-											token,
-										} as any))
-								}
-							/>
+					<VStack>
+						{tokenExists && (
+							<HStack
+								mb={4}
+								alignItems="center"
+								justifyContent="space-between"
+								mx={5}
+							>
+								<ButtonIcon
+									icon={SignOut}
+									onPress={handleSignOut}
+								/>
+								<ButtonIcon
+									icon={PlusCircle}
+									onPress={handleNewVehicle}
+								/>
+							</HStack>
 						)}
-					/>
+						<FlatList
+							data={vehicles}
+							keyExtractor={(item) => item.id}
+							showsVerticalScrollIndicator={false}
+							_contentContainerStyle={{ pb: 10 }}
+							ListEmptyComponent={() => <EmptyShowcase />}
+							px={5}
+							renderItem={({ item }) => (
+								<VehicleCard
+									data={item}
+									onPress={
+										tokenExists &&
+										(() =>
+											navigate("detailsVehicle", {
+												id: item.id,
+												name: item.name,
+												brand: item.brand,
+												model: item.model,
+												picture: item.picture,
+												price: item.price,
+												token,
+											} as any))
+									}
+								/>
+							)}
+						/>
+					</VStack>
 				)}
 			</VStack>
 		</VStack>
